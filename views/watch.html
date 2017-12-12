@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head data-cast-api-enabled="true"> <!-- allow chromecast extention -->
+<script src="http://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script> <!-- add chromecast sdk -->
+<script src="/video.js"></script><!-- add video.js sdk -->
+<script src="/videojs-chromecast.js"></script><!--/ add plugin -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <title>{{video.title}}</title>
+  <link href="/video-js.css" rel="stylesheet">
+<link href="/videojs-chromecast.css" rel="stylesheet">
+ <script src="/js/videojs-resolution-switcher.js"></script>
+  <style type="text/css">
+    .vjs-resolution-button {
+      color: #ccc;
+      font-family: VideoJS;
+    }
+
+    .vjs-resolution-button .vjs-resolution-button-staticlabel:before {
+      content: '\f110';
+      font-size: 1.8em;
+      line-height: 1.67;
+    }
+
+    .vjs-resolution-button .vjs-resolution-button-label {
+        font-size: 1em;
+        line-height: 3em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        box-sizing: inherit;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .vjs-resolution-button ul.vjs-menu-content {
+      width: 4em !important;
+    }
+
+    .vjs-resolution-button .vjs-menu {
+      left: 0;
+    }
+
+    .vjs-resolution-button .vjs-menu li {
+      text-transform: none;
+      font-size: 1em;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style> 
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <section class="pure-g">
+        <div class="pure-u-1">
+          <h3>
+          [<a href="http://phim.trum.xyz">Home</a>]  :: [<a href="javascript:history.go(-1)">Quay lại</a>]
+            {{#video.title}}
+              :: <span>{{video.title}}</span>
+            {{/video.title}}
+          </h3>
+          
+          <video id="bbplayer" class="video-js vjs-default-skin" controls data-setup='{}' width="640px" height="360px" poster="{{video.thumb}}">
+ 
+            {{#medias}}
+    <source src="{{url}}" type='video/mp4' label='{{label}}' res='{{resolution}}' />
+     {{/medias}}
+</video>
+
+          
+        <div class="episodes">
+           {{#episodes}}
+              <b><a href="/watch?id={{hash}}">{{no}}</a></b>
+           {{/episodes}}
+         </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script type="text/javascript">
+window.HELP_IMPROVE_VIDEOJS = false
+var player = window.videojs('bbplayer')
+player.ready(function () {
+  player.videoJsResolutionSwitcher({
+    default: 'mid',
+    dynamicLabel: false
+  })
+
+  player.on('error', function (e, whatever) {
+    player.currentResolution('360p', function(_player, _sources, _label){
+      return _player.src(_sources[_sources.length - 1]);
+    })
+  })
+})
+</script>
+
+</body>
+</html>
+
+
+
