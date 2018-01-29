@@ -79,21 +79,29 @@
       </section>
     </div>
   </div>
-  <script type="text/javascript">
-window.HELP_IMPROVE_VIDEOJS = false
-var player = window.videojs('bbplayer')
-player.ready(function () {
-  player.videoJsResolutionSwitcher({
-    default: {360},
-    dynamicLabel: false
-  })
-
-  player.on('error', function (e, whatever) {
+<script>
+  videojs('bbplayer', {
+    controls: true,
+    plugins: {
+        videoJsResolutionSwitcher: {
+          ui: true,
+          default: {360},
+          dynamicLabel: true
+        },
+      chromecast({})
+      }
+  }, function(){
+ 
+      
+   player.on('error', function (e, whatever) {
     player.currentResolution('360p', function(_player, _sources, _label){
       return _player.src(_sources[_sources.length - 1]);
     })
   })
-})
+    // Add dynamically sources via updateSrc method
+   
+      
+  })
 </script>
 
 </body>
