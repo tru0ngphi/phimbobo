@@ -62,7 +62,9 @@
             {{/video.title}}
           </h3>
           
-          <video id="bbplayer" class="video-js vjs-default-skin" controls data-setup='{}' width="640px" height="360px" poster="{{video.thumb}}">
+         <video poster="{{video.thumb}}" id="bbplayer" class="video-js vjs-default-skin vjs-big-play-centered"
+              controls width="640" height="auto"
+              data-setup='{"fluid": true}'>
  
             {{#medias}}
     <source src="{{url}}" type='video/mp4' label='{{label}}' res='{{resolution}}' />
@@ -92,14 +94,7 @@
       }
   }, function(){
  
-      
-   player.on('error', function (e, whatever) {
-    player.currentResolution('360p', function(_player, _sources, _label){
-      return _player.src(_sources[_sources.length - 1]);
-    })
-  })
-    // Add dynamically sources via updateSrc method
-   
+  
       
   })
 </script>
