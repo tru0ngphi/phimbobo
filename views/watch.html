@@ -56,7 +56,7 @@
       <section class="pure-g">
         <div class="pure-u-1">
           <h3>
-          [<a href="http://phim.trum.xyz">Home</a>]  :: [<a href="javascript:history.go(-1)">Quay lại</a>]
+          [<a href="./">Home</a>]  :: [<a href="javascript:history.go(-1)">Quay lại</a>]
             {{#video.title}}
               :: <span>{{video.title}}</span>
             {{/video.title}}
@@ -84,7 +84,7 @@ window.HELP_IMPROVE_VIDEOJS = false
 var player = window.videojs('bbplayer')
 player.ready(function () {
   player.videoJsResolutionSwitcher({
-    default: 'mid',
+    default: {360},
     dynamicLabel: false
   })
 
