@@ -68,7 +68,7 @@
               :: <span>{{video.title}}</span>
             {{/video.title}}
           </h3>
-                    <video poster="{{video.thumb}}" id="bbplayer" class="video-js vjs-default-skin vjs-big-play-centered" controls width="640" height="auto" data-setup=''>
+                    <video poster="{{video.thumb}}" id="bbplayer" class="video-js vjs-default-skin vjs-big-play-centered vjs-16-9" controls width="640" height="auto" data-setup=''>
                         {{#medias}}
                         <source src="{{url}}" type='video/mp4' label='{{label}}' res='{{resolution}}' /> {{/medias}}
                     </video>
@@ -80,25 +80,31 @@
             </section>
         </div>
     </div>
-    <script>
-    videojs('bbplayer', {
-        
-        plugins: {
-            videoJsResolutionSwitcher: {
-                ui: true,
-                default: { 360 },
-                dynamicLabel: true
-            },
-           chromecast: {
-            appId: undefined,
-            metadata: {
-              title: "Title",
-              subtitle: "Subtitle"
-            }
-        }
-    }, function() {})
+    <script type="text/javascript">
+window.HELP_IMPROVE_VIDEOJS = false
+var player = window.videojs('bbplayer')
 
-    </script>
+player.ready(function () {
+  plugins: {
+    chromecast: {
+      appId: "AppID of your Chromecast App",
+      metadata: {
+        title: "Title",
+        subtitle: "Subtitle"
+      }
+    }
+  }  ,
+  player.videoJsResolutionSwitcher({
+    default: {360},
+    dynamicLabel: true
+  })
+  player.on('error', function (e, whatever) {
+    player.currentResolution('360p', function(_player, _sources, _label){
+      return _player.src(_sources[_sources.length - 1]);
+    })
+  })
+})
+</script>
 </body>
 
 </html>
